@@ -1,0 +1,495 @@
+﻿<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zubr Code — превью стиля</title>
+<style>
+  :root{--bg:#16120D;--surface:#211B14;--border:#3A3126;--text:#F1EBDF;--muted:#B0A693;--accent:#F2A93B;--accent-ink:#1A1206;--accent2:#5B8DEF;--err:#F43F5E;--fs:1}
+  :root.hc{--bg:#000;--surface:#000;--border:#FFF;--text:#FFF;--muted:#FFF;--accent:#FFD27A;--accent2:#7FB2FF}
+  :root.noanim *{transition:none!important;animation:none!important}
+  :root[data-theme="light"]{--bg:#E7E2D5;--surface:#EFEBE1;--border:#C4BCAA;--text:#24211B;--muted:#5E5847;--accent:#9A5A0C;--accent-ink:#FFFFFF;--accent2:#2F5FB3}
+  :root[data-theme="light"] .bison{opacity:.18}
+  :root[data-theme="light"] .mock{background:#E9E4D8}
+  :root[data-theme="light"] .btn-main{color:#FFFFFF}
+  :root[data-theme="light"] .btn-main:hover{filter:brightness(.92)}  *{box-sizing:border-box}
+  html{font-size:calc(16px * var(--fs))}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.6}
+  h1,h2,h3{font-family:Manrope,Inter,sans-serif;font-weight:500;margin:0}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+  .skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:8px 12px;border-radius:8px;z-index:9}
+  .skip:focus{left:8px}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px;font-family:Manrope,sans-serif;font-weight:700;letter-spacing:.5px;color:var(--text);text-decoration:none}
+  .logo img{width:36px;height:auto;image-rendering:pixelated}
+  .logo span{color:var(--accent)}
+  nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  nav a{color:var(--muted);text-decoration:none;padding:10px 12px;min-height:44px;display:inline-flex;align-items:center;border-radius:8px;font-size:15px}
+  nav a:hover{color:var(--text)}
+  .tools{display:flex;gap:8px;align-items:center}
+  select.lang{min-height:44px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:0 10px;font:inherit}
+  .icon-btn{min-height:44px;min-width:44px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font:inherit;padding:0 12px}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center;padding:64px 0}
+  .hero h1{font-size:clamp(32px,4.4vw,52px);line-height:1.15}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .lead{color:var(--muted);font-size:18px;margin:16px 0 28px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;padding:0 20px;border-radius:8px;font-weight:500;text-decoration:none;font-size:15px;border:1px solid var(--border);color:var(--text);background:transparent;cursor:pointer;font-family:inherit}
+  .btn-main{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .facts{display:flex;gap:24px;margin-top:28px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+  .facts b{display:block;font-family:"JetBrains Mono",Consolas,monospace;font-size:20px;color:var(--text);font-weight:500}
+  .visual{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden}
+  .visual .tag{font-size:12px;color:var(--muted)}
+  .mock{margin-top:12px;background:#1A150F;border:1px solid var(--border);border-radius:8px;padding:14px;font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;color:var(--muted);position:relative;z-index:1}
+  .mock .ok{color:var(--accent2)}
+  .mock .hi{color:var(--accent)}
+  .bison{position:absolute;right:-24px;bottom:-6px;width:210px;opacity:.14;pointer-events:none}
+  .rule{height:16px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='16'><g fill='%23F2A93B' opacity='.7'><rect x='14' y='0' width='4' height='4'/><rect x='10' y='4' width='4' height='4'/><rect x='18' y='4' width='4' height='4'/><rect x='6' y='8' width='4' height='4'/><rect x='22' y='8' width='4' height='4'/><rect x='10' y='12' width='4' height='4'/><rect x='18' y='12' width='4' height='4'/></g></svg>");background-repeat:repeat-x;background-size:32px 16px;background-position:center}  .sec{padding:48px 0;border-top:1px solid var(--border)}
+  .sec h2{font-size:30px;margin-bottom:8px}
+  .sec p.sub{color:var(--muted);margin:0 0 28px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:block;transition:border-color .2s}
+  .card:hover,.card:focus-visible{border-color:var(--accent)}
+  .card .cat{font-size:12px;color:var(--muted)}
+  .card h3{font-size:18px;margin:6px 0 8px}
+  .card .price{font-family:"JetBrains Mono",Consolas,monospace;color:var(--accent);margin:12px 0 4px;font-size:16px}
+  .card .meta{color:var(--muted);font-size:14px}
+  .card.game{border-style:dashed}
+  form{display:grid;gap:14px;max-width:520px}
+  label{font-size:14px}
+  input,select.field{min-height:44px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px 12px;font:inherit;width:100%}
+  .err{color:var(--err);font-size:14px;display:flex;gap:6px;align-items:center;min-height:22px}
+  .ok-msg{color:var(--accent2)}
+  .banner{display:none;margin:12px 0 0;padding:10px 14px;border:1px solid var(--accent);border-radius:8px;color:var(--text);font-size:14px}
+  .banner.show{display:block}
+  footer{padding:32px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--border)}
+  footer .row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+  footer a{color:var(--muted)}
+  /* панель доступности */
+  .a11y{position:fixed;right:16px;bottom:16px;width:min(340px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;display:none;z-index:20;max-height:80vh;overflow:auto}
+  .a11y.open{display:block}
+  .a11y h2{font-size:18px;margin-bottom:12px}
+  .a11y .set{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
+  .a11y .set:last-of-type{border-bottom:0}
+  .a11y .seg{display:flex;gap:6px}
+  .a11y .seg button{min-height:40px;min-width:40px;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;cursor:pointer;font:inherit}
+  .a11y .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .toggle{min-height:44px;min-width:76px;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;cursor:pointer;font:inherit;padding:0 10px}
+  .toggle[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  /* дальтоники: подчёркивание и значки, цвет не единственный носитель смысла */
+  :root.cb a.card .price::before{content:"◆ "}
+  :root.cb .card .cat::before{content:"■ "}
+  :root.cb .btn-main{text-decoration:underline}
+  @media (max-width:768px){
+    .hero{grid-template-columns:1fr;padding:40px 0}
+    .bison{width:150px;opacity:.09}
+    nav a:not(.keep){display:none}
+  }
+  [dir="rtl"] .facts,[dir="rtl"] .btns{direction:rtl}
+  #bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .glyph{position:fixed;font-family:"JetBrains Mono",Consolas,monospace;font-size:15px;color:var(--accent);opacity:.32;pointer-events:none;z-index:0;user-select:none}
+  header,.hero,.sec,.rule,.banner,footer,main{position:relative;z-index:1}
+  .sec h2::before{content:"// ";color:var(--accent);font-family:"JetBrains Mono",Consolas,monospace;font-size:.7em;font-weight:400}
+  .cmd{font-family:"JetBrains Mono",Consolas,monospace;font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:4px 8px;display:inline-block;margin-top:14px}
+  .cmd b{color:var(--accent);font-weight:500}
+  #con{position:fixed;left:16px;bottom:16px;z-index:15;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;max-width:min(360px,calc(100vw - 32px));white-space:nowrap;overflow:hidden}
+  #con .cur{display:inline-block;width:7px;height:13px;background:var(--accent);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  canvas.run{image-rendering:pixelated;width:100%;max-width:420px;height:auto;display:block}
+  #loader{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:16px;text-align:center;transition:opacity .4s}
+  #loader.hide{opacity:0;pointer-events:none}
+  #loader p{margin:0;color:var(--muted);font-family:"JetBrains Mono",Consolas,monospace;font-size:14px}
+  #loader canvas{max-width:260px}
+  #gameModal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:40;padding:16px}
+  #gameModal.open{display:flex}
+  #gameModal .box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px;width:min(760px,100%)}
+  #gameModal iframe{width:100%;height:340px;border:0;border-radius:8px;display:block}
+  #err{display:none;padding:72px 0;text-align:center}
+  #err canvas{margin:0 auto 16px;max-width:300px}
+  #err h1{font-size:clamp(28px,4vw,44px);margin:0 0 12px}
+  body.is-404 header,body.is-404 .hero,body.is-404 .rule,body.is-404 .sec,body.is-404 footer,body.is-404 .banner{display:none}
+  body.is-404 #err{display:block}
+  .sr{position:absolute;left:-9999px}
+  canvas.bison.run{width:210px;max-width:none}  #ai-btn{position:fixed;right:16px;bottom:16px;z-index:30;min-height:52px;padding:0 18px;border-radius:26px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+  #ai-btn .dot{width:8px;height:8px;background:currentColor;border-radius:50%}
+  #ai-panel{position:fixed;right:16px;bottom:80px;z-index:31;width:min(360px,calc(100vw - 32px));max-height:min(520px,70vh);background:var(--surface);border:1px solid var(--border);border-radius:14px;display:none;flex-direction:column;overflow:hidden}
+  #ai-panel.open{display:flex}
+  #ai-head{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px}
+  #ai-head b{font-family:Manrope,sans-serif;font-weight:500;font-size:16px}
+  #ai-head small{display:block;color:var(--muted);font-size:12px}
+  #ai-msgs{padding:12px 14px;overflow:auto;display:flex;flex-direction:column;gap:8px;flex:1}
+  .ai-m{max-width:88%;padding:9px 12px;border-radius:10px;font-size:14px;line-height:1.5}
+  .ai-m.bot{background:var(--bg);border:1px solid var(--border);align-self:flex-start}
+  .ai-m.me{background:var(--accent);color:var(--accent-ink);align-self:flex-end}
+  .ai-opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .ai-opts button{min-height:40px;padding:0 12px;border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;font:inherit;font-size:13px;cursor:pointer}
+  .ai-opts button:hover{border-color:var(--accent)}
+  #ai-form{display:flex;gap:6px;padding:10px;border-top:1px solid var(--border)}
+  #ai-form input{flex:1;min-height:40px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:0 10px;font:inherit}
+  #ai-form button{min-height:40px;padding:0 14px;border-radius:8px;border:0;background:var(--accent);color:var(--accent-ink);font:inherit;cursor:pointer}
+  #ai-note{font-size:11px;color:var(--muted);padding:0 14px 10px}
+  .ai-res{border:1px dashed var(--accent);border-radius:10px;padding:10px 12px;font-size:14px;margin-top:4px}
+  .ai-res b{font-family:Manrope,sans-serif;font-weight:500}
+  @media (max-width:768px){#ai-panel{bottom:76px}}  .zav{width:38px;height:34px;flex:none;overflow:hidden;position:relative;background:var(--bg);border:1px solid var(--accent);image-rendering:pixelated}
+  .zav img{position:absolute;left:-3px;top:-1px;width:150px;max-width:none;image-rendering:pixelated}
+  #ai-btn{border-radius:0;box-shadow:4px 4px 0 var(--border);min-height:50px;padding:0 14px 0 8px;background:var(--surface);color:var(--text);border:1px solid var(--accent);gap:10px}
+  #ai-btn .zav{border-color:var(--accent)}
+  #ai-panel{border-radius:0;border:1px solid var(--accent);box-shadow:6px 6px 0 var(--border)}
+  #ai-head{border-bottom:1px dashed var(--border)}
+  #ai-head b{font-family:"JetBrains Mono",Consolas,monospace;font-size:15px;color:var(--accent)}
+  #ai-head small{font-size:12px}
+  .ai-row{display:flex;gap:8px;align-items:flex-end;align-self:flex-start;max-width:100%}
+  .ai-row .ai-m{align-self:auto}
+  .ai-m.bot{border-radius:0;border:1px solid var(--border);border-left:3px solid var(--accent);background:var(--surface);color:var(--text)}
+  .ai-m.me{border-radius:0;background:var(--accent);color:var(--accent-ink)}
+  .ai-opts button{border-radius:0;border:1px solid var(--border);font-size:13px;background:var(--surface)}
+  .ai-opts button:hover,.ai-opts button:focus-visible{border-color:var(--accent);background:var(--bg)}
+  #ai-form input{border-radius:0}
+  #ai-form button{border-radius:0}
+  .ai-res{border-radius:0;border:1px dashed var(--accent);background:var(--bg)}
+  .ai-typing{display:inline-flex;gap:4px;padding:10px 12px;border:1px solid var(--border);border-left:3px solid var(--accent);background:var(--surface)}
+  .ai-typing i{width:6px;height:6px;background:var(--accent);display:block;animation:tdot 1s steps(1) infinite}
+  .ai-typing i:nth-child(2){animation-delay:.2s}
+  .ai-typing i:nth-child(3){animation-delay:.4s}
+  @keyframes tdot{0%{opacity:.2}33%{opacity:1}100%{opacity:.2}}</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div id="glyphs" aria-hidden="true"></div>
+<a class="skip" href="#main">Перейти к содержанию</a>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#" aria-label="Zubr Code — на главную"><img src="zubr-pixel.svg" alt="" width="36" height="22"><span>ZUBR</span>CODE</a>
+    <nav aria-label="Основная навигация">
+      <a class="keep" href="#services" data-i="navServices">Услуги</a>
+      <a href="#works" data-i="navWorks">Работы</a>
+      <a href="#prices" data-i="navPrices">Цены</a>
+      <a href="zubr-run.html" data-i="navGame">Игра</a>
+      <a class="keep" href="#contact" data-i="navContact">Контакты</a>
+    </nav>
+    <div class="tools">
+      <label class="sr" for="lang" style="position:absolute;left:-9999px">Язык</label>
+      <select id="lang" class="lang">
+        <option value="ru">Русский</option>
+        <option value="be">Беларуская</option>
+        <option value="en">English</option>
+        <option value="zh" disabled>中文 (в работе)</option>
+        <option value="ar" disabled>العربية (в работе)</option>
+        <option value="kk" disabled>Қазақша (в работе)</option>
+      </select>
+      <button class="icon-btn" id="themeBtn" aria-label="Переключить светлую или тёмную тему" title="Тема">☾ / ☀</button>
+      <button class="icon-btn" id="a11yBtn" aria-expanded="false" aria-controls="a11y" title="Настройки доступности (Alt+A)">Доступность</button>
+    </div>
+  </header>
+
+  <div class="banner" id="banner" role="status"></div>
+
+  <main id="main">
+  <section class="hero">
+    <div>
+      <h1 id="h1"><span data-i="h1a">Боты, сайты и ИИ</span> <em data-i="h1b">для бизнеса</em></h1>
+      <p class="lead" data-i="lead">Делаем с помощью ИИ — быстрее и дешевле команды. Цена «от» и срок видны сразу.</p>
+      <div class="btns">
+        <a class="btn btn-main" href="#contact" data-i="ctaMain">Обсудить проект</a>
+        <a class="btn" href="#services" data-i="ctaSec">Смотреть услуги</a>
+      </div>
+      <div class="facts">
+        <div><b>от 200 $</b><span data-i="f1">Telegram-бот</span></div>
+        <div><b>3 дня</b><span data-i="f2">простой бот</span></div>
+        <div><b>3 языка</b><span data-i="f3">сайта сейчас</span></div>
+      </div>
+    </div>
+    <div class="visual" aria-label="Пример заявки">
+      <div class="tag" data-i="tag">Пример: заявка за 3 дня</div>
+      <div class="mock">
+        <div><span class="hi">$</span> zubr create --bot telegram</div>
+        <div class="ok" data-i="m1">✓ ТЗ согласовано</div>
+        <div class="ok" data-i="m2">✓ бот в работе, демо готово</div>
+        <div><span class="hi">→</span> <span data-i="m3">сдача: 3 дня</span></div>
+      </div>
+      <canvas class="bison run" id="heroRun" width="204" height="132" aria-hidden="true"></canvas>
+    </div>
+  </section>
+  <section id="err" aria-labelledby="errH"><canvas class="run" id="errRun" width="204" height="132" aria-hidden="true"></canvas><h1 id="errH">Зубр убежал</h1><p class="lead" style="margin:0 auto 20px;max-width:460px">Этой страницы нет. Зубр уже в пуще, а вы можете вернуться на главную или сыграть, пока он бежит.</p><div class="btns" style="justify-content:center"><a class="btn btn-main" href="#">На главную</a><button class="btn" id="errGame" type="button">Поиграть</button></div></section>  </main>
+
+  <div class="rule" aria-hidden="true"></div>
+
+  <section class="sec" id="services">
+    <h2 data-i="svcTitle">Услуги</h2>
+    <p class="sub" data-i="svcSub">Цены «от» и сроки — ориентир, точная стоимость после ТЗ.</p>
+    <div class="grid">
+      <a class="card" href="#contact" data-svc="Лендинг с деплоем"><div class="cat" data-i="c1">Сайты</div><h3 data-i="s1">Лендинг с деплоем</h3><div class="meta" data-i="d1">Страница, домен, сервер в РБ</div><div class="price">от 150 $</div><div class="meta" data-i="t1">срок 3–5 дней</div></a>
+      <a class="card" href="#contact" data-svc="Бот для мессенджера"><div class="cat" data-i="c2">Боты и приложения</div><h3 data-i="s2">Бот для мессенджера</h3><div class="meta" data-i="d2">Telegram, MAX, Viber</div><div class="price">от 200 $</div><div class="meta" data-i="t2">срок 2–5 дней</div></a>
+      <a class="card" href="#contact" data-svc="ИИ-ассистент"><div class="cat" data-i="c3">ИИ</div><h3 data-i="s3">ИИ-ассистент по базе знаний</h3><div class="meta" data-i="d3">Отвечает клиентам по вашим документам</div><div class="price">от 800 $</div><div class="meta" data-i="t3">срок 1–2 недели</div></a>
+      <a class="card game" href="zubr-run.html"><div class="cat" data-i="c4">Игры</div><h3 data-i="s4">Мини-игра «Зубр»</h3><div class="meta" data-i="d4">Для сайта или телефона</div><div class="price">от 150 $</div><div class="meta" data-i="t4">срок 3–5 дней · играть ↗</div></a>
+      <a class="card" href="#contact" data-svc="1С"><div class="cat" data-i="c5">1С</div><h3 data-i="s5">Интеграция с сайтом</h3><div class="meta" data-i="d5">Обмен заказами и остатками</div><div class="price">от 500 $</div><div class="meta" data-i="t5">срок по ТЗ</div></a>
+    </div>
+  </section>
+
+  <section class="sec" id="contact">
+    <h2 data-i="formTitle">Обсудить проект</h2>
+    <p class="sub" data-i="formSub">Ответим в течение 24 часов. Переписка — в Telegram или WhatsApp.</p>
+    <form id="form" novalidate>
+      <div><label for="n" data-i="fName">Имя</label><input id="n" name="name" autocomplete="name" data-ph="phName"></div>
+      <div><label for="c" data-i="fContact">Telegram или телефон</label><input id="c" name="contact" autocomplete="tel" data-ph="phContact"></div>
+      <div><label for="s" data-i="fService">Услуга</label><select id="s" name="service" class="field"></select></div>
+      <div id="e" class="err" role="status" aria-live="polite"></div>
+      <div><button class="btn btn-main" type="submit" data-i="fSend">Отправить заявку</button></div>
+    </form>
+  </section>
+
+  <section class="sec" id="prices">
+    <h2 data-i="pricesTitle">Как считаем цену</h2>
+    <p class="sub" data-i="pricesSub">Цена «от» — ориентир. Точная стоимость зависит от ТЗ и согласовывается до старта.</p>
+  </section>
+
+  <footer>
+    <div class="row">
+      <div>ZUBRCODE · <a href="#404">404</a> · <span data-i="ip">ИП (реквизиты будут здесь)</span></div>
+      <div><a href="#" data-i="privacy">Политика обработки данных</a> · <a href="#" data-i="a11yStmt">Заявление о доступности</a></div>
+    </div>
+  </footer>
+</div>
+
+<div class="a11y" id="a11y" role="dialog" aria-labelledby="a11yTitle">
+  <h2 id="a11yTitle" data-i="a11yTitle">Доступность</h2>
+  <div class="set"><span data-i="aFont">Размер текста</span>
+    <div class="seg" role="group" aria-label="Размер текста">
+      <button data-fs="1" aria-pressed="true">100%</button><button data-fs="1.25" aria-pressed="false">125%</button><button data-fs="1.5" aria-pressed="false">150%</button>
+    </div></div>
+  <div class="set"><span data-i="aContrast">Высокий контраст</span><button class="toggle" id="tHc" aria-pressed="false" data-i="off">Выкл</button></div>
+  <div class="set"><span data-i="aCb">Режим для дальтоников</span><button class="toggle" id="tCb" aria-pressed="false" data-i="off">Выкл</button></div>
+  <div class="set"><span data-i="aAnim">Отключить анимации</span><button class="toggle" id="tAn" aria-pressed="false" data-i="off">Выкл</button></div>
+  <div class="set"><span data-i="aSpeak">Озвучить страницу</span><button class="toggle" id="tSpeak" aria-pressed="false" data-i="speakBtn">Слушать</button></div>
+  <div class="set"><span></span><button class="toggle" id="tReset" data-i="reset">Сбросить</button></div>
+</div>
+
+<script>
+var T={
+ru:{navServices:'Услуги',navWorks:'Работы',navPrices:'Цены',navGame:'Игра',navContact:'Контакты',h1a:'Боты, сайты и ИИ',h1b:'для бизнеса',lead:'Делаем с помощью ИИ — быстрее и дешевле команды. Цена «от» и срок видны сразу.',ctaMain:'Обсудить проект',ctaSec:'Смотреть услуги',f1:'Telegram-бот',f2:'простой бот',f3:'сайта сейчас',tag:'Пример: заявка за 3 дня',m1:'✓ ТЗ согласовано',m2:'✓ бот в работе, демо готово',m3:'сдача: 3 дня',svcTitle:'Услуги',svcSub:'Цены «от» и сроки — ориентир, точная стоимость после ТЗ.',c1:'Сайты',c2:'Боты и приложения',c3:'ИИ',c4:'Игры',c5:'1С',s1:'Лендинг с деплоем',s2:'Бот для мессенджера',s3:'ИИ-ассистент по базе знаний',s4:'Мини-игра «Зубр»',s5:'Интеграция с сайтом',d1:'Страница, домен, сервер в РБ',d2:'Telegram, MAX, Viber',d3:'Отвечает клиентам по вашим документам',d4:'Для сайта или телефона',d5:'Обмен заказами и остатками',t1:'срок 3–5 дней',t2:'срок 2–5 дней',t3:'срок 1–2 недели',t4:'срок 3–5 дней · играть ↗',t5:'срок по ТЗ',formTitle:'Обсудить проект',formSub:'Ответим в течение 24 часов. Переписка — в Telegram или WhatsApp.',fName:'Имя',fContact:'Telegram или телефон',fService:'Услуга',fSend:'Отправить заявку',phName:'Например, Анна',phContact:'@username или +375 …',pricesTitle:'Как считаем цену',pricesSub:'Цена «от» — ориентир. Точная стоимость зависит от ТЗ и согласовывается до старта.',ip:'ИП (реквизиты будут здесь)',privacy:'Политика обработки данных',a11yStmt:'Заявление о доступности',a11yTitle:'Доступность',aFont:'Размер текста',aContrast:'Высокий контраст',aCb:'Режим для дальтоников',aAnim:'Отключить анимации',aSpeak:'Озвучить страницу',speakBtn:'Слушать',reset:'Сбросить',off:'Выкл',on:'Вкл',errName:'Укажите имя',errContact:'Укажите Telegram или телефон',okMsg:'Заявка принята. Ответим в течение 24 часов.',services:['Лендинг с деплоем','Бот для мессенджера','ИИ-ассистент','Мини-игра','1С'],pending:'Перевод в работе — показан русский текст.',stop:'Остановить'},
+be:{navServices:'Паслугі',navWorks:'Працы',navPrices:'Цэны',navGame:'Гульня',navContact:'Кантакты',h1a:'Боты, сайты і штучны інтэлект',h1b:'для бізнесу',lead:'Робім з дапамогай ШІ — хутчэй і танней за каманду. Цана «ад» і тэрмін бачныя адразу.',ctaMain:'Абмеркаваць праект',ctaSec:'Глядзець паслугі',f1:'Telegram-бот',f2:'просты бот',f3:'мовы сайта зараз',tag:'Прыклад: заяўка за 3 дні',m1:'✓ ТЗ узгоднена',m2:'✓ бот у працы, дэма гатова',m3:'здача: 3 дні',svcTitle:'Паслугі',svcSub:'Цэны «ад» і тэрміны — арыентыр, дакладная кошт пасля ТЗ.',c1:'Сайты',c2:'Боты і праграмы',c3:'ШІ',c4:'Гульні',c5:'1С',s1:'Лэндзінг з дэплоем',s2:'Бот для мэсэнджара',s3:'ШІ-асістэнт па базе ведаў',s4:'Міні-гульня «Зубр»',s5:'Інтэграцыя з сайтам',d1:'Старонка, дамен, сервер у РБ',d2:'Telegram, MAX, Viber',d3:'Адказвае кліентам па вашых дакументах',d4:'Для сайта або тэлефона',d5:'Абмен заказамі і рэшткамі',t1:'тэрмін 3–5 дзён',t2:'тэрмін 2–5 дзён',t3:'тэрмін 1–2 тыдні',t4:'тэрмін 3–5 дзён · гуляць ↗',t5:'тэрмін па ТЗ',formTitle:'Абмеркаваць праект',formSub:'Адкажам на працягу 24 гадзін. Перапіска — у Telegram або WhatsApp.',fName:'Імя',fContact:'Telegram або тэлефон',fService:'Паслуга',fSend:'Даслаць заяўку',phName:'Напрыклад, Ганна',phContact:'@username або +375 …',pricesTitle:'Як лічым цану',pricesSub:'Цана «ад» — арыентыр. Дакладны кошт залежыць ад ТЗ і ўзгадняецца да старту.',ip:'ІП (рэквізіты будуць тут)',privacy:'Палітыка апрацоўкі даных',a11yStmt:'Заява аб доступнасці',a11yTitle:'Доступнасць',aFont:'Памер тэксту',aContrast:'Высокі кантраст',aCb:'Рэжым для дальтонікаў',aAnim:'Адключыць анімацыі',aSpeak:'Агучыць старонку',speakBtn:'Слухаць',reset:'Скінуць',off:'Выкл',on:'Уключ',errName:'Укажыце імя',errContact:'Укажыце Telegram або тэлефон',okMsg:'Заяўка прынята. Адкажам на працягу 24 гадзін.',services:['Лэндзінг з дэплоем','Бот для мэсэнджара','ШІ-асістэнт','Міні-гульня','1С'],pending:'',stop:'Спыніць'},
+en:{navServices:'Services',navWorks:'Work',navPrices:'Prices',navGame:'Game',navContact:'Contact',h1a:'Bots, websites and AI',h1b:'for business',lead:'We build with AI — faster and cheaper than a team. "From" price and timeline are visible up front.',ctaMain:'Discuss a project',ctaSec:'See services',f1:'Telegram bot',f2:'simple bot',f3:'site languages now',tag:'Example: request in 3 days',m1:'✓ brief agreed',m2:'✓ bot in progress, demo ready',m3:'delivery: 3 days',svcTitle:'Services',svcSub:'"From" prices and timelines are estimates; the exact quote follows the brief.',c1:'Websites',c2:'Bots and apps',c3:'AI',c4:'Games',c5:'1C',s1:'Landing page with deploy',s2:'Messenger bot',s3:'AI assistant over your knowledge base',s4:'Mini-game "Zubr"',s5:'Website integration',d1:'Page, domain, server in Belarus',d2:'Telegram, MAX, Viber',d3:'Answers your clients from your documents',d4:'For a website or phone',d5:'Orders and stock sync',t1:'3–5 days',t2:'2–5 days',t3:'1–2 weeks',t4:'3–5 days · play ↗',t5:'per brief',formTitle:'Discuss a project',formSub:'We reply within 24 hours. Chat via Telegram or WhatsApp.',fName:'Name',fContact:'Telegram or phone',fService:'Service',fSend:'Send request',phName:'For example, Anna',phContact:'@username or +375 …',pricesTitle:'How we price',pricesSub:'"From" is an estimate. The exact price depends on the brief and is agreed before work starts.',ip:'Sole proprietor (details here)',privacy:'Privacy policy',a11yStmt:'Accessibility statement',a11yTitle:'Accessibility',aFont:'Text size',aContrast:'High contrast',aCb:'Colour-blind mode',aAnim:'Reduce motion',aSpeak:'Read page aloud',speakBtn:'Listen',reset:'Reset',off:'Off',on:'On',errName:'Enter your name',errContact:'Enter Telegram or phone',okMsg:'Request received. We reply within 24 hours.',services:['Landing page with deploy','Messenger bot','AI assistant','Mini-game','1C'],pending:'',stop:'Stop'}
+};
+var LSKEY='zubrcode-a11y';
+var st={lang:'ru',fs:1,hc:false,cb:false,an:false,theme:null};
+function save(){try{localStorage.setItem(LSKEY,JSON.stringify(st));}catch(e){}}
+function load(){try{var v=JSON.parse(localStorage.getItem(LSKEY)||'null');if(v)st=Object.assign(st,v);}catch(e){}}
+
+function applyLang(l){
+  var dict=T[l]||T.ru, fallback=T.ru;
+  document.documentElement.lang=l;
+  document.documentElement.dir='ltr';
+  document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');var v=dict[k];if(v===undefined||v==='')v=fallback[k];if(typeof v==='string')el.textContent=v;});
+  document.querySelectorAll('[data-ph]').forEach(function(el){el.placeholder=dict[el.getAttribute('data-ph')]||fallback[el.getAttribute('data-ph')];});
+  var sel=document.getElementById('s');sel.innerHTML='';(dict.services||fallback.services).forEach(function(n){var o=document.createElement('option');o.textContent=n;sel.appendChild(o);});
+  var b=document.getElementById('banner');b.textContent=(l==='ru'||!T[l]||!dict.pending)?'':dict.pending;b.classList.toggle('show',!!b.textContent);
+  st.lang=l;document.getElementById('lang').value=l;save();
+}
+function applyA11y(){
+  var r=document.documentElement;
+  var th=st.theme||(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');
+  r.setAttribute('data-theme',th);
+  r.style.setProperty('--fs',st.fs);
+  r.classList.toggle('hc',st.hc);r.classList.toggle('cb',st.cb);r.classList.toggle('noanim',st.an);
+  var d=T[st.lang]||T.ru;
+  document.getElementById('tHc').setAttribute('aria-pressed',st.hc);document.getElementById('tHc').textContent=st.hc?d.on:d.off;
+  document.getElementById('tCb').setAttribute('aria-pressed',st.cb);document.getElementById('tCb').textContent=st.cb?d.on:d.off;
+  document.getElementById('tAn').setAttribute('aria-pressed',st.an);document.getElementById('tAn').textContent=st.an?d.on:d.off;
+  document.querySelectorAll('[data-fs]').forEach(function(b){b.setAttribute('aria-pressed',String(parseFloat(b.dataset.fs)===st.fs));});
+}
+
+// озвучка страницы: если браузер не умеет — кнопка скрывается, без ошибки
+var speaking=false;
+function speak(){
+  try{
+    if(!('speechSynthesis' in window)){return;}
+    if(speaking){speechSynthesis.cancel();speaking=false;document.getElementById('tSpeak').textContent=(T[st.lang]||T.ru).speakBtn;return;}
+    var text=document.querySelector('main').innerText;
+    var u=new SpeechSynthesisUtterance(text);u.lang=st.lang==='be'?'ru-RU':(st.lang==='en'?'en-US':'ru-RU');
+    u.onend=function(){speaking=false;document.getElementById('tSpeak').textContent=(T[st.lang]||T.ru).speakBtn;};
+    speaking=true;document.getElementById('tSpeak').textContent=(T[st.lang]||T.ru).stop;speechSynthesis.speak(u);
+  }catch(e){speaking=false;}
+}
+
+// события
+document.getElementById('lang').addEventListener('change',function(e){applyLang(e.target.value);applyA11y();});
+var panel=document.getElementById('a11y'),btn=document.getElementById('a11yBtn');
+function togglePanel(open){panel.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));if(open)panel.querySelector('button').focus();}
+btn.addEventListener('click',function(){togglePanel(!panel.classList.contains('open'));});
+document.addEventListener('keydown',function(e){
+  if(e.altKey&&(e.key==='a'||e.key==='A')){e.preventDefault();togglePanel(!panel.classList.contains('open'));}
+  if(e.key==='Escape'&&panel.classList.contains('open')){togglePanel(false);btn.focus();}
+});
+document.querySelectorAll('[data-fs]').forEach(function(b){b.addEventListener('click',function(){st.fs=parseFloat(b.dataset.fs);applyA11y();save();});});
+document.getElementById('tHc').onclick=function(){st.hc=!st.hc;applyA11y();save();};
+document.getElementById('tCb').onclick=function(){st.cb=!st.cb;applyA11y();save();};
+document.getElementById('tAn').onclick=function(){st.an=!st.an;applyA11y();save();};
+document.getElementById('tSpeak').onclick=speak;
+document.getElementById('tReset').onclick=function(){st={lang:st.lang,fs:1,hc:false,cb:false,an:false,theme:st.theme};applyA11y();save();};
+
+// карточки услуг подставляют услугу в форму
+document.querySelectorAll('a[data-svc]').forEach(function(a){a.addEventListener('click',function(){document.getElementById('s').value=a.dataset.svc;});});
+
+// форма: проверка до отправки, ошибки текстом с иконкой
+document.getElementById('form').addEventListener('submit',function(e){
+  e.preventDefault();var d=T[st.lang]||T.ru,err=document.getElementById('e');
+  var n=document.getElementById('n'),c=document.getElementById('c');
+  if(!n.value.trim()){err.className='err';err.textContent='⚠ '+d.errName;n.setAttribute('aria-invalid','true');n.focus();return;}
+  if(!c.value.trim()){err.className='err';err.textContent='⚠ '+d.errContact;c.setAttribute('aria-invalid','true');c.focus();return;}
+  n.removeAttribute('aria-invalid');c.removeAttribute('aria-invalid');
+  err.className='err ok-msg';err.textContent='✓ '+d.okMsg;
+});
+
+document.getElementById('themeBtn').onclick=function(){var cur=document.documentElement.getAttribute('data-theme');st.theme=cur==='light'?'dark':'light';applyA11y();save();};
+
+// старт: сохранённые настройки, язык — по браузеру, если поддерживается
+load();
+var nav=(navigator.language||'ru').slice(0,2);
+applyLang(T[st.lang]&&st.lang?st.lang:(T[nav]?nav:'ru'));
+applyA11y();
+</script>
+<div id="loader" role="status" aria-live="polite"><canvas class="run" id="loadRun" width="204" height="132" aria-hidden="true"></canvas><p id="loadTxt">загрузка…</p><button class="btn" id="loadGame" type="button">Пока ждёте — поиграть</button></div>
+<div id="gameModal" role="dialog" aria-modal="true" aria-label="Мини-игра Зубр"><div class="box"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px"><span style="font-size:14px">Мини-игра «Зубр»</span><button class="btn" id="gameClose" type="button">Закрыть</button></div><iframe src="zubr-run.html" title="Мини-игра Зубр"></iframe></div></div>
+<div id="con" aria-hidden="true"><span id="conTxt"></span><span class="cur"></span></div><script>var RECTS=[[9,0,3,1,'#F2A93B'],[12,0,1,1,'#DB8F2B'],[8,1,2,1,'#F2A93B'],[10,1,1,1,'#DB8F2B'],[11,1,4,1,'#F2A93B'],[1,2,1,1,'#EDE6D6'],[5,2,1,1,'#5A3410'],[6,2,2,1,'#DB8F2B'],[8,2,1,1,'#B8731F'],[9,2,4,1,'#DB8F2B'],[13,2,4,1,'#F2A93B'],[0,3,1,1,'#EDE6D6'],[4,3,2,1,'#B8731F'],[6,3,2,1,'#B8AC96'],[8,3,1,1,'#5A3410'],[9,3,1,1,'#8A5418'],[10,3,4,1,'#DB8F2B'],[14,3,5,1,'#F2A93B'],[0,4,1,1,'#B8AC96'],[1,4,1,1,'#EDE6D6'],[3,4,2,1,'#DB8F2B'],[5,4,2,1,'#5A3410'],[7,4,1,1,'#EDE6D6'],[8,4,1,1,'#B8AC96'],[9,4,2,1,'#8A5418'],[11,4,5,1,'#DB8F2B'],[16,4,4,1,'#F2A93B'],[20,4,4,1,'#DB8F2B'],[1,5,1,1,'#B8AC96'],[2,5,1,1,'#B8731F'],[3,5,3,1,'#F2A93B'],[6,5,1,1,'#8A5418'],[7,5,1,1,'#EDE6D6'],[8,5,1,1,'#B8AC96'],[9,5,1,1,'#5A3410'],[10,5,1,1,'#8A5418'],[11,5,1,1,'#B8731F'],[12,5,5,1,'#DB8F2B'],[17,5,2,1,'#F2A93B'],[19,5,2,1,'#DB8F2B'],[21,5,7,1,'#F2A93B'],[28,5,1,1,'#DB8F2B'],[2,6,2,1,'#F2A93B'],[4,6,1,1,'#DB8F2B'],[5,6,1,1,'#5A3410'],[6,6,2,1,'#B8AC96'],[8,6,1,1,'#B8731F'],[9,6,1,1,'#5A3410'],[10,6,2,1,'#B8731F'],[12,6,8,1,'#DB8F2B'],[20,6,3,1,'#F2A93B'],[23,6,3,1,'#DB8F2B'],[26,6,4,1,'#F2A93B'],[2,7,1,1,'#F2A93B'],[3,7,1,1,'#DB8F2B'],[4,7,2,1,'#B8731F'],[6,7,1,1,'#8A5418'],[7,7,3,1,'#5A3410'],[10,7,2,1,'#8A5418'],[12,7,1,1,'#B8731F'],[13,7,2,1,'#DB8F2B'],[15,7,1,1,'#B8731F'],[16,7,7,1,'#DB8F2B'],[23,7,4,1,'#B8731F'],[27,7,2,1,'#DB8F2B'],[29,7,1,1,'#F2A93B'],[30,7,1,1,'#DB8F2B'],[1,8,2,1,'#F2A93B'],[3,8,1,1,'#B8731F'],[5,8,2,1,'#B8731F'],[7,8,1,1,'#8A5418'],[8,8,1,1,'#5A3410'],[9,8,2,1,'#8A5418'],[11,8,3,1,'#DB8F2B'],[14,8,2,1,'#B8731F'],[16,8,8,1,'#DB8F2B'],[24,8,1,1,'#B8731F'],[25,8,3,1,'#DB8F2B'],[28,8,2,1,'#B8731F'],[31,8,1,1,'#B8731F'],[1,9,1,1,'#F2A93B'],[2,9,4,1,'#B8731F'],[6,9,2,1,'#8A5418'],[8,9,1,1,'#5A3410'],[9,9,2,1,'#8A5418'],[11,9,1,1,'#DB8F2B'],[12,9,1,1,'#B8731F'],[13,9,2,1,'#DB8F2B'],[15,9,2,1,'#B8731F'],[17,9,6,1,'#DB8F2B'],[23,9,1,1,'#B8731F'],[24,9,1,1,'#8A5418'],[25,9,4,1,'#DB8F2B'],[29,9,1,1,'#B8731F'],[31,9,1,1,'#B8731F'],[1,10,1,1,'#8A5418'],[2,10,4,1,'#B8731F'],[6,10,3,1,'#5A3410'],[9,10,2,1,'#8A5418'],[11,10,1,1,'#DB8F2B'],[12,10,1,1,'#B8731F'],[13,10,3,1,'#DB8F2B'],[16,10,1,1,'#8A5418'],[17,10,5,1,'#DB8F2B'],[22,10,2,1,'#B8731F'],[24,10,1,1,'#8A5418'],[25,10,3,1,'#DB8F2B'],[28,10,2,1,'#B8731F'],[31,10,1,1,'#B8731F'],[32,10,1,1,'#DB8F2B'],[1,11,2,1,'#F2A93B'],[3,11,1,1,'#DB8F2B'],[4,11,1,1,'#B8731F'],[5,11,2,1,'#8A5418'],[7,11,2,1,'#5A3410'],[9,11,2,1,'#8A5418'],[11,11,1,1,'#DB8F2B'],[12,11,1,1,'#B8731F'],[13,11,3,1,'#DB8F2B'],[16,11,1,1,'#5A3410'],[17,11,5,1,'#DB8F2B'],[22,11,1,1,'#B8731F'],[23,11,3,1,'#8A5418'],[26,11,3,1,'#DB8F2B'],[29,11,1,1,'#B8731F'],[32,11,1,1,'#B8731F'],[33,11,1,1,'#8A5418'],[1,12,1,1,'#B8731F'],[3,12,1,1,'#F2A93B'],[4,12,1,1,'#8A5418'],[5,12,3,1,'#5A3410'],[8,12,2,1,'#8A5418'],[10,12,1,1,'#5A3410'],[11,12,2,1,'#8A5418'],[13,12,1,1,'#B8731F'],[14,12,2,1,'#DB8F2B'],[16,12,2,1,'#5A3410'],[18,12,1,1,'#8A5418'],[19,12,1,1,'#B8731F'],[20,12,6,1,'#8A5418'],[26,12,3,1,'#DB8F2B'],[29,12,1,1,'#B8731F'],[32,12,1,1,'#8A5418'],[33,12,1,1,'#5A3410'],[2,13,1,1,'#DB8F2B'],[3,13,1,1,'#5A3410'],[4,13,1,1,'#8A5418'],[5,13,1,1,'#B8731F'],[6,13,2,1,'#5A3410'],[8,13,2,1,'#8A5418'],[10,13,2,1,'#5A3410'],[12,13,2,1,'#8A5418'],[14,13,1,1,'#B8731F'],[15,13,2,1,'#DB8F2B'],[17,13,1,1,'#5A3410'],[18,13,5,1,'#8A5418'],[23,13,3,1,'#5A3410'],[26,13,1,1,'#B8731F'],[27,13,2,1,'#DB8F2B'],[29,13,1,1,'#8A5418'],[33,13,1,1,'#5A3410'],[3,14,1,1,'#DB8F2B'],[4,14,1,1,'#B8731F'],[5,14,1,1,'#8A5418'],[7,14,2,1,'#5A3410'],[9,14,2,1,'#8A5418'],[11,14,1,1,'#5A3410'],[12,14,3,1,'#8A5418'],[15,14,1,1,'#DB8F2B'],[16,14,1,1,'#5A3410'],[17,14,5,1,'#8A5418'],[22,14,5,1,'#5A3410'],[27,14,1,1,'#B8731F'],[28,14,1,1,'#DB8F2B'],[29,14,1,1,'#B8731F'],[4,15,1,1,'#DB8F2B'],[8,15,4,1,'#5A3410'],[12,15,5,1,'#8A5418'],[17,15,1,1,'#5A3410'],[23,15,1,1,'#B8731F'],[24,15,2,1,'#8A5418'],[28,15,2,1,'#DB8F2B'],[30,15,1,1,'#B8731F'],[9,16,1,1,'#F2A93B'],[10,16,2,1,'#5A3410'],[12,16,4,1,'#8A5418'],[23,16,3,1,'#B8731F'],[28,16,1,1,'#F2A93B'],[29,16,1,1,'#DB8F2B'],[30,16,1,1,'#B8731F'],[9,17,2,1,'#DB8F2B'],[11,17,1,1,'#8A5418'],[13,17,1,1,'#B8731F'],[14,17,2,1,'#8A5418'],[24,17,2,1,'#B8731F'],[29,17,3,1,'#DB8F2B'],[10,18,1,1,'#DB8F2B'],[11,18,1,1,'#B8731F'],[14,18,1,1,'#DB8F2B'],[24,18,1,1,'#B8731F'],[30,18,2,1,'#DB8F2B'],[9,19,1,1,'#8A5418'],[10,19,1,1,'#DB8F2B'],[14,19,2,1,'#DB8F2B'],[23,19,1,1,'#DB8F2B'],[24,19,1,1,'#B8731F'],[30,19,2,1,'#DB8F2B'],[8,20,3,1,'#3E2A18'],[14,20,1,1,'#3E2A18'],[15,20,1,1,'#8A5418'],[21,20,2,1,'#3E2A18'],[23,20,1,1,'#5A3410'],[29,20,3,1,'#3E2A18'],[8,21,3,1,'#3E2A18'],[13,21,3,1,'#3E2A18'],[21,21,3,1,'#3E2A18'],[29,21,3,1,'#3E2A18']];
+var reduceM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function noAnim(){return document.documentElement.classList.contains('noanim')||reduceM;}
+
+// фон: мозаика зубра из квадратиков + решётка «кодромб»
+var bg=document.getElementById('bg'),bx=bg.getContext('2d');
+function drawBg(){
+  var dpr=window.devicePixelRatio||1,W=bg.width=innerWidth*dpr,H=bg.height=innerHeight*dpr;
+  bx.clearRect(0,0,W,H);
+  var s=56*dpr;bx.strokeStyle='rgba(242,169,59,.11)';bx.lineWidth=1;
+  for(var y=0;y<H+s;y+=s){for(var x=0;x<W+s;x+=s){bx.beginPath();bx.moveTo(x,y+s/2);bx.lineTo(x+s/2,y);bx.lineTo(x+s,y+s/2);bx.lineTo(x+s/2,y+s);bx.closePath();bx.stroke();bx.beginPath();bx.moveTo(x+s/2-s*.1,y+s/2);bx.lineTo(x+s/2+s*.1,y+s/2);bx.moveTo(x+s/2,y+s/2-s*.1);bx.lineTo(x+s/2,y+s/2+s*.1);bx.stroke();}}
+  var cell=Math.max(5*dpr,Math.round(H*0.62/22)),ox=W-34*cell-W*0.03,oy=(H-22*cell)/2;
+  bx.globalAlpha=.16;
+  RECTS.forEach(function(r){bx.fillStyle=r[4];bx.fillRect(ox+r[0]*cell+1,oy+r[1]*cell+1,r[2]*cell-2,r[3]*cell-2);});
+  bx.globalAlpha=1;
+}
+drawBg();addEventListener('resize',drawBg);
+
+// декоративные «кодовые» метки
+var glyphs=[['</>',7,20],['{ }',92,12],['=>',84,72],['01',3,60],['git push',86,90],['fn()',12,88],['&&',48,5],['// TODO',40,93],['npm run build',70,4]];
+var gbox=document.getElementById('glyphs');
+glyphs.forEach(function(g){var s=document.createElement('span');s.className='glyph';s.textContent=g[0];s.style.left=g[1]+'%';s.style.top=g[2]+'%';gbox.appendChild(s);});
+
+// покадровая анимация бега зубра (4 кадра: ноги и корпус)
+function drawRunner(c,f,cell){
+  var x=c.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,c.width,c.height);
+  var fl=[0,2,0,-2][f%4],hd=[0,-2,0,2][f%4],bob=(f%2)?-1:0;
+  var ox=Math.floor((c.width-34*cell)/2),oy=c.height-22*cell;
+  RECTS.forEach(function(r){
+    var dx=0,dy=0;
+    if(r[1]>=16){dx=r[0]<20?fl:hd;}else{dy=bob;}
+    x.fillStyle=r[4];x.fillRect(ox+(r[0]+dx)*cell,oy+(r[1]+dy)*cell,r[2]*cell,r[3]*cell);
+  });
+}
+var frame=0;
+function drawAll(){document.querySelectorAll('canvas.run').forEach(function(c){drawRunner(c,noAnim()?0:frame,6);});}
+drawAll();
+setInterval(function(){if(!noAnim()){frame++;drawAll();}},130);
+
+// печатающаяся консоль
+var msgs=['ждём ваш проект…','собираю бота…','тесты пройдены ✓','деплой на сервер в РБ…','ИИ пишет код, человек проверяет'];
+var mi=0,ci=0,conTxt=document.getElementById('conTxt');
+function typeLoop(){
+  var m=msgs[mi];
+  if(noAnim()){conTxt.textContent='$ zubr status: '+m;return;}
+  if(ci<=m.length){conTxt.textContent='$ zubr status: '+m.slice(0,ci);ci++;setTimeout(typeLoop,55);}
+  else{setTimeout(function(){ci=0;mi=(mi+1)%msgs.length;typeLoop();},1800);}
+}
+typeLoop();
+
+// загрузка: показываем зубра, пока страница грузится, и во время отправки заявки
+var loader=document.getElementById('loader'),loadTxt=document.getElementById('loadTxt');
+function showLoader(txt){loadTxt.textContent=txt;loader.classList.remove('hide');}
+function hideLoader(){loader.classList.add('hide');}
+addEventListener('load',function(){setTimeout(hideLoader,1400);});
+document.getElementById('form').addEventListener('submit',function(){
+  var n=document.getElementById('n').value.trim(),c=document.getElementById('c').value.trim();
+  if(n&&c){showLoader('отправляем заявку…');setTimeout(hideLoader,1800);}
+});
+
+// мини-игра во время загрузки и на странице ошибки
+var gm=document.getElementById('gameModal');
+function openGame(){gm.classList.add('open');document.getElementById('gameClose').focus();}
+function closeGame(){gm.classList.remove('open');}
+document.getElementById('loadGame').onclick=openGame;
+document.getElementById('errGame').onclick=openGame;
+document.getElementById('gameClose').onclick=closeGame;
+gm.addEventListener('click',function(e){if(e.target===gm)closeGame();});
+addEventListener('keydown',function(e){if(e.key==='Escape')closeGame();});
+
+// страница ошибки: адрес #404
+function route(){document.body.classList.toggle('is-404',location.hash==='#404');if(location.hash==='#404')window.scrollTo(0,0);}
+addEventListener('hashchange',route);route();</script>
+<button id="ai-btn" type="button" aria-expanded="false" aria-controls="ai-panel"><span class="zav" aria-hidden="true"><img src="zubr-pixel.svg" alt=""></span>Спросить зубра</button>
+<div id="ai-panel" role="dialog" aria-label="Зубр-помощник: выбор услуги">
+  <div id="ai-head"><div style="display:flex;gap:10px;align-items:center"><span class="zav" aria-hidden="true"><img src="zubr-pixel.svg" alt=""></span><div><b>Зубр-помощник</b><small>Спросите о задаче — подскажу услугу</small></div></div><button class="icon-btn" id="ai-close" type="button" aria-label="Закрыть помощника">✕</button></div>
+  <div id="ai-msgs" aria-live="polite"></div>
+  <form id="ai-form"><input id="ai-in" aria-label="Опишите задачу" placeholder="Опишите задачу…"><button type="submit">Отправить</button></form>
+  <div id="ai-note">Демо-сценарий. Цены ориентировочные. Настоящий ИИ подключим на сервере после выбора провайдера.</div>
+</div><script>(function(){
+var FLOW={
+ start:{q:'Здравствуйте! Я помогу понять, что вам нужно. С чего начнём?',o:[['Сайт или лендинг','site'],['Бот для мессенджера','bot'],['ИИ в бизнес-процессах','ai'],['Мини-игра','game'],['Интеграция с 1С','c1'],['Пока не знаю','unk']]},
+ site:{q:'Какой сайт нужен?',o:[['Одна страница с услугой','s1'],['Несколько страниц и кейсы','s2'],['Поддержка уже работающего сайта','s3']]},
+ bot:{q:'В каком мессенджере нужен бот?',o:[['Telegram или MAX','b1'],['WhatsApp или Viber','b2']]},
+ ai:{q:'Что хотите автоматизировать?',o:[['Ответы клиентам по вашей базе знаний','a1'],['Разбор документов и счетов','a2'],['Картинки, логотипы, редактирование фото','a3']]},
+ game:{q:'Мини-игра для сайта, телефона или рекламы?',o:[['Для сайта или рекламы','g1']]},
+ c1:{q:'Что нужно связать с 1С?',o:[['Сайт или интернет-магазин','c1']]}
+};
+var RES={
+ s1:{n:'Лендинг с деплоем',p:'от 150 $',t:'3–5 дней',sel:'Лендинг с деплоем'},
+ s2:{n:'Многостраничный сайт',p:'от 400 $',t:'1–2 недели',sel:'Многостраничный сайт'},
+ s3:{n:'Поддержка сайта',p:'от 50 $ в месяц',t:'по договорённости',sel:'Поддержка сайта'},
+ b1:{n:'Бот для Telegram или MAX',p:'от 200 $',t:'2–5 дней',sel:'Бот для мессенджера'},
+ b2:{n:'Бот для WhatsApp или Viber',p:'от 300 $',t:'3–7 дней',sel:'Бот WhatsApp / Viber',x:'Подключим через сервисы-посредники, уточним при разговоре.'},
+ a1:{n:'ИИ-ассистент по базе знаний',p:'от 800 $',t:'1–2 недели',sel:'ИИ-ассистент'},
+ a2:{n:'Разбор документов и счетов',p:'от 400 $',t:'около недели',sel:'Обработка документов'},
+ a3:{n:'Картинки, логотипы, редактирование фото',p:'от 80 $',t:'2–4 дня',sel:'ИИ-картинки и логотипы'},
+ g1:{n:'Мини-игра «Зубр»',p:'от 150 $',t:'3–5 дней',sel:'Мини-игра'},
+ c1:{n:'Интеграция с 1С',p:'от 500 $',t:'по ТЗ',sel:'1С'}
+};
+var msgs=document.getElementById('ai-msgs'),panel=document.getElementById('ai-panel'),btn=document.getElementById('ai-btn');
+function add(text,who){var d=document.createElement('div');d.className='ai-m '+(who||'bot');d.textContent=text;if((who||'bot')==='bot'){var r=document.createElement('div');r.className='ai-row';r.innerHTML='<span class="zav" aria-hidden="true"><img src="zubr-pixel.svg" alt=""></span>';r.appendChild(d);msgs.appendChild(r);}else{msgs.appendChild(d);}msgs.scrollTop=msgs.scrollHeight;return d;}
+function opts(list,onPick){var w=document.createElement('div');w.className='ai-opts';list.forEach(function(o){var b=document.createElement('button');b.type='button';b.textContent=o[0];b.onclick=function(){w.remove();add(o[0],'me');onPick(o[1],o[0]);};w.appendChild(b);});msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;}
+function step(key){var s=FLOW[key];typing(function(){add(s.q);opts(s.o,function(v){if(FLOW[v])step(v);else result(v);});});}function typing(cb){var w=document.createElement('div');w.className='ai-row';w.innerHTML='<span class="zav" aria-hidden="true"><img src="zubr-pixel.svg" alt=""></span><span class="ai-typing"><i></i><i></i><i></i></span>';msgs.appendChild(w);msgs.scrollTop=msgs.scrollHeight;setTimeout(function(){w.remove();cb();},700);}
+function result(k){
+ if(k==='unk'){add('Ничего страшного. Опишите задачу в поле внизу, или оставьте заявку — ответим в течение 24 часов.');return;}
+ var r=RES[k];
+ if(!r){add('Пока не могу подобрать точно. Оставьте заявку — разберёмся вместе.');return;}
+ var box=document.createElement('div');box.className='ai-res';
+ box.innerHTML='<b></b><div></div><div></div>';
+ box.querySelector('b').textContent=r.n;
+ box.children[1].textContent='Цена: '+r.p+'. Срок: '+r.t+'.';
+ box.children[2].textContent=(r.x?r.x+' ':'')+'Точная стоимость после ТЗ.';
+ msgs.appendChild(box);
+ var go=document.createElement('div');go.className='ai-opts';
+ var b=document.createElement('button');b.type='button';b.textContent='Оставить заявку на эту услугу';
+ b.onclick=function(){var s=document.getElementById('s');var has=Array.prototype.some.call(s.options,function(o){return o.value===r.sel;});if(!has){var o=document.createElement('option');o.textContent=r.sel;s.appendChild(o);}s.value=r.sel;panel.classList.remove('open');btn.setAttribute('aria-expanded','false');document.getElementById('contact').scrollIntoView({behavior:'smooth'});document.getElementById('n').focus();};
+ go.appendChild(b);msgs.appendChild(go);msgs.scrollTop=msgs.scrollHeight;
+}
+var KEYS=[[/сайт|лендинг|страниц/i,'site'],[/бот|telegram|телеграм|whatsapp|viber|мессенджер/i,'bot'],[/ии|ai|нейр|агент|ассистент|картин|логотип/i,'ai'],[/игр|game/i,'game'],[/1с|1c/i,'c1']];
+document.getElementById('ai-form').addEventListener('submit',function(e){
+ e.preventDefault();var inp=document.getElementById('ai-in'),q=inp.value.trim();if(!q)return;inp.value='';
+ add(q,'me');
+ var hit=KEYS.filter(function(k){return k[0].test(q);})[0];
+ if(hit){setTimeout(function(){add('Похоже, вам подойдёт это направление. Уточню:');step(hit[1]);},300);}
+ else{setTimeout(function(){add('Не могу точно понять по одному слову. Выберите, что ближе, или оставьте заявку — ответим в течение 24 часов.');step('start');},300);}
+});
+btn.addEventListener('click',function(){var open=!panel.classList.contains('open');panel.classList.toggle('open',open);btn.setAttribute('aria-expanded',String(open));if(open&&!msgs.childElementCount){step('start');}});
+document.getElementById('ai-close').addEventListener('click',function(){panel.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.focus();});
+addEventListener('keydown',function(e){if(e.key==='Escape'&&panel.classList.contains('open')){panel.classList.remove('open');btn.setAttribute('aria-expanded','false');btn.focus();}});
+})();</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
